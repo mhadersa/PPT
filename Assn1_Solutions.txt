@@ -1,0 +1,162 @@
+Q1)
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        n1=[]
+        for i in nums:
+            n1.append(i)
+        nums.sort()
+        lo=0
+        hi=len(nums)-1
+        res=[ ]
+        while(lo<hi):
+            sum=nums[lo]+nums[hi]
+            if(sum<target):
+                lo += 1
+            elif(sum>target):
+                hi -= 1
+            else:
+                if(n1[lo]!=nums[lo] or n1[hi]!=nums[hi]):
+                    res.append(n1.index(nums[lo]))
+                    res.append(n1.index(nums[hi]))
+                else:
+                    res.append(lo)
+                    res.append(hi)
+                lo += 1
+                hi -= 1
+        return res
+
+Q2)
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        k = 0
+        for i in range(len(nums)):
+            if(nums[i] != val):
+                nums[k]=nums[i]
+                k += 1
+        return k
+
+Q3)
+
+
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        l,hi = 0, len(nums)-1
+        if target in nums:
+            op=nums.index(target)
+        elif target < nums[l]:
+            op = l
+        elif target > nums[hi]:
+            op = len(nums)
+        else:
+            for i in range(len(nums)):
+                if target < nums[i]:
+                    op=i
+                    break
+                else:
+                    continue
+        return op
+Q4)
+
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        s=[str(i) for i in digits]
+        y=("".join(s))
+        y=int(y)
+        y+=1
+        res = [int(i) for i in str(y)]
+        return res
+
+Q5)
+
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        high = m+n -1
+        while m > 0 and n >0:
+            if nums1[m - 1] > nums2[n - 1]:
+                nums1[high] = nums1[m - 1]
+                m -= 1
+            else:
+                nums1[high] = nums2[n - 1]
+                n -= 1
+            high -= 1
+        while n > 0:
+            nums1[high] = nums2[n - 1]
+            n, high = n - 1, high - 1
+        
+Q6)
+
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        set1= set()
+        for i in nums:
+            if i in set1:
+                return True
+            else:
+                set1.add(i)
+        return False
+
+
+Q7)
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[k] = nums[i]
+                k = k + 1
+        for i in range(k,len(nums)):
+            nums[i] = 0
+        return nums
+
+Q8)
+
+class Solution(object):
+    def findErrorNums(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        duplicate = None
+        missing = None
+        h = Counter(nums)
+        for i in range(1,len(nums)+1):
+            if i not in h:
+                missing = i
+            if h[i] > 1:
+                duplicate =i
+        return [duplicate, missing]
+
