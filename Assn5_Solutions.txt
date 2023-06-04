@@ -1,0 +1,138 @@
+Q1)
+
+class Solution(object):
+    def construct2DArray(self, original, m, n):
+        """
+        :type original: List[int]
+        :type m: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        if len(original) != m * n:
+            return []
+
+        ans = [[0] * n for _ in range(m)]
+
+        for i, num in enumerate(original):
+            ans[i // n][i % n] = num
+
+        return ans
+
+Q2)
+
+class Solution(object):
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return int((-1 + sqrt(8 * n + 1)) // 2)
+
+Q3)
+
+class Solution(object):
+    def sortedSquares(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        n = len(nums)
+        l = 0
+        r = n - 1
+        ans = [0] * n
+
+        while n:
+            n -= 1
+            if abs(nums[l]) > abs(nums[r]):
+                ans[n] = nums[l] * nums[l]
+                l += 1
+            else:
+                ans[n] = nums[r] * nums[r]
+                r -= 1
+
+        return ans
+
+Q4)
+
+class Solution(object):
+    def findDifference(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[List[int]]
+        """
+        lst1 = set(nums1)
+        lst2 = set(nums2)
+        return [lst1 - lst2, lst2 - lst1]
+
+Q5)
+
+class Solution(object):
+    def findTheDistanceValue(self, arr1, arr2, d):
+        """
+        :type arr1: List[int]
+        :type arr2: List[int]
+        :type d: int
+        :rtype: int
+        """
+        return sum(all(abs(a - b) > d for b in arr2) for a in arr1)
+
+
+
+Q6)
+
+class Solution(object):
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        ans = []
+
+        for num in nums:
+            nums[abs(num) - 1] *= -1
+            if nums[abs(num) - 1] > 0:
+                ans.append(abs(num))
+
+        return ans
+
+Q7)
+
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = 0
+        r = len(nums) - 1
+
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] < nums[r]:
+                r = m
+            else:
+                l = m + 1
+
+        return nums[l]
+
+Q8)
+
+
+class Solution(object):
+    def findOriginalArray(self, changed):
+        """
+        :type changed: List[int]
+        :rtype: List[int]
+        """
+        ans = []
+        q = collections.deque()
+
+        for num in sorted(changed):
+            if q and num == q[0]:
+                q.popleft()
+            else:
+                q.append(num * 2)
+                ans.append(num)
+
+        return [] if q else ans
