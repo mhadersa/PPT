@@ -1,0 +1,68 @@
+1)
+class Solution(object):
+    def isPowerOfTwo(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        if(n ==1):
+            return True
+        if(n < 1 or n%2 != 0):
+            return False
+        return self.isPowerOfTwo(n/2)
+
+2)
+def recurSum(n):
+    if n <= 1:
+        return n
+    return n + recurSum(n - 1)
+
+3)
+def factorial(n):
+       
+    if n == 0:
+        return 1
+      
+    return n * factorial(n-1)
+
+4)
+def power(N, P):
+	if P == 0:
+		return 1
+	return (N*power(N, P-1))
+
+5)
+def largest( arr, n):
+	if (n == 1):
+		return arr[0]
+	return max(arr[n - 1], largest(arr, n - 1))
+
+6)
+def Nth_of_AP(a, d, N) :
+	if N ==1:
+	    return a
+	return Nth_of_AP((a+d),d,(N-1))
+
+7)
+class Solution:
+    def find_permutation(S):
+    
+        words = []
+        word =''
+    
+        def premute(new_word, S):
+            if not S:
+                words.append(word)
+            else:
+                for i in range(len(S)):
+                    premute(new_word=word + S[i], S=S[0:i] + S[i+1:])
+
+        premute(word, S)
+        return words
+
+8)
+def product(ar, n):
+  if n==1:
+    return ar[0]
+  return (ar[n-1]*product(ar, n-1))
+
