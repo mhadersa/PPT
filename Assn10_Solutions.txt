@@ -1,0 +1,84 @@
+1)
+class Solution(object):
+    def isPowerOfThree(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        if(n ==1):
+            return True
+        if(n < 1 or n%3 != 0):
+            return False
+        return self.isPowerOfThree(n/3)
+
+2)
+class Solution(object):
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return 1 if n==1 else 2*(n//2+1-self.lastRemaining(n//2))
+
+3)
+def powerSet(s, i, cur):
+	if i == len(s):
+		print(cur)
+		return
+    	powerSet(s, i + 1,cur + s[i])
+	powerSet(s, i + 1, cur)
+
+4)
+def str_len(str) :
+    if str == '':
+        return 0
+    else :
+        return 1 + str_len(str[1:])
+
+5)
+def countSubstrs(str, i, j, n):
+	if (n == 1):
+		return 1
+	if (n <= 0):
+		return 0
+	res = (countSubstrs(str, i + 1, j, n - 1)
+		+ countSubstrs(str, i, j - 1, n - 1)
+		- countSubstrs(str, i + 1, j - 1, n - 2))	
+	if (str[i] == str[j]):
+		res += 1
+
+	return res
+
+6)
+def TowerOfHanoi(n, from_rod, to_rod, aux_rod):
+    if n == 0:
+        return
+    TowerOfHanoi(n-1, from_rod, aux_rod, to_rod)
+    print("Move disk", n, "from rod", from_rod, "to rod", to_rod)
+    TowerOfHanoi(n-1, aux_rod, to_rod, from_rod)
+
+7)
+def get_permutation(string, idx=0):
+
+    if idx == len(string) - 1:   	 
+        print("".join(string))
+    for j in range(idx, len(string)):
+        words_list = [c for c in string]   
+        words_list[idx], words_list[j] = words_list[j], words_list[idx]
+   	 
+        get_permutation(words_list, idx + 1)
+
+8)
+def isConsonant(ch):
+	ch = ch.upper()
+	return not (ch == 'A' or ch == 'E' or
+				ch == 'I' or ch == 'O' or
+				ch == 'U') and ord(ch) >= 65 and ord(ch) <= 90
+def totalConsonants(string):
+	count = 0
+	for i in range(len(string)):
+		if (isConsonant(string[i])):
+			count += 1
+	return count
+
+
