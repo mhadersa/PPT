@@ -1,0 +1,218 @@
+1)
+class Solution(object):
+    def deleteMiddle(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        t1 = t2 = head
+        count = 0
+        count1 = 0
+        while t1:
+            count+=1
+            t1 = t1.next
+        if count <= 1:
+            return None
+        mid = count // 2
+        while count1 < mid-1:
+            count1+=1
+            t2 = t2.next
+        print count1
+        t2.next = t2.next.next
+        return head
+
+2)
+class Solution:
+    #Function to check if the linked list has a loop.
+    def detectLoop(self, head):
+        #code here
+        temp =  ""
+        while head:
+            if head.next == None:
+                return False
+            if (head.next == temp):
+                return True
+            next = head.next
+            head.next = temp
+            head = next
+        return False
+
+3)
+def getNthFromLast(head,n):
+    #code here
+    t = t1 = head
+    count = 0
+    while t:
+        count += 1
+        t = t.next
+    if n > count:  
+        return -1
+    for i in range(0, count - n):
+        t1 = t1.next
+    return t1.data
+
+4)
+
+class Solution:
+    def isPalindrome(self, head):
+        slow_ptr = head
+        fast_ptr = head
+        prev_of_slow_ptr = head
+ 
+        midnode = None
+ 
+        
+        res = True
+ 
+        if (head != None and head.next != None):
+ 
+            
+            while (fast_ptr != None and
+                   fast_ptr.next != None):
+ 
+
+                fast_ptr = fast_ptr.next.next
+                prev_of_slow_ptr = slow_ptr
+                slow_ptr = slow_ptr.next
+ 
+
+            if (fast_ptr != None):
+                midnode = slow_ptr
+                slow_ptr = slow_ptr.next
+ 
+
+            second_half = slow_ptr
+ 
+
+            prev_of_slow_ptr.next = None
+ 
+
+            second_half = self.reverse(second_half)
+ 
+
+            res = self.compareLists(head, second_half)
+ 
+
+            second_half = self.reverse(second_half)
+ 
+            if (midnode != None):
+ 
+
+                prev_of_slow_ptr.next = midnode
+                midnode.next = second_half
+            else:
+                prev_of_slow_ptr.next = second_half
+        return res
+ 
+
+    def reverse(self, second_half):
+ 
+        prev = None
+        current = second_half
+        next = None
+ 
+        while current != None:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+ 
+        second_half = prev
+        return second_half
+ 
+
+    def compareLists(self, head1, head2):
+ 
+        temp1 = head1
+        temp2 = head2
+ 
+        while (temp1 and temp2):
+            if (temp1.data == temp2.data):
+                temp1 = temp1.next
+                temp2 = temp2.next
+            else:
+                return 0
+ 
+        
+        if (temp1 == None and temp2 == None):
+            return 1
+ 
+        
+        return 0
+ 
+
+ 
+5)
+class Solution:
+    def removeLoop(self, head):
+        fast = head.next
+        slow = head
+        while fast!=slow:
+            if fast is None or fast.next is None:
+                return
+            
+            fast = fast.next.next
+            slow = slow.next
+        size = 1
+        fast = fast.next
+        while fast!=slow:
+            fast = fast.next
+            size+=1
+        slow=head
+        fast=head
+        for _ in range(size-1):
+            fast=fast.next
+        while fast.next != slow:
+            fast=fast.next
+            slow=slow.next
+        fast.next=None
+
+6)
+class Solution:
+    def skipMdeleteN(self, head, M, N):
+        # Code here
+        curr = head
+        while(curr):
+            for count in range(1, M):
+                if curr is None:
+                    return 
+                curr = curr.next
+            if curr is None :
+                return 
+            t = curr.next 
+            for count in range(1, N+1):
+                if t is None:
+                    break
+                t = t.next
+            curr.next = t
+            curr = t
+
+7)
+def mergeList(head1, head2):
+    # Code here
+    p_curr = head1
+    q_curr = head2
+    while p_curr != None and q_curr != None:
+        p_next = p_curr.next
+        q_next = q_curr.next
+        q_curr.next = p_next  # change next pointer of q_curr
+        p_curr.next = q_curr  # change next pointer of p_curr
+        # update current pointers for next iteration
+        p_curr = p_next
+        q_curr = q_next
+        head2 = q_curr
+    return [head1, head2]
+
+8)
+def isCircular(head):
+    # Code here
+    if head == None:
+        return True
+    node = head.next
+    i = 0
+    while((node is not None) and (node is not head)):
+        i = i + 1
+        node = node.next
+  
+    return(node == head)
+
