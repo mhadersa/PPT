@@ -1,0 +1,221 @@
+1)
+def newList(root1, root2):
+ 
+    ptr1 = root1
+    ptr2 = root2
+     
+    root = None
+    while (ptr1 != None) :
+        temp = Node(0)
+        temp.next = None
+        if (ptr1.data < ptr2.data):
+            temp.data = ptr2.data
+        else:
+            temp.data = ptr1.data
+ 
+        if (root == None):
+            root = temp
+        else :
+            ptr = root
+            while (ptr.next != None):
+                ptr = ptr.next
+ 
+            ptr.next = temp
+         
+        ptr1 = ptr1.next
+        ptr2 = ptr2.next
+     
+    return root
+2)
+def removeDuplicates(head):
+	if (head == None and head.next == None):
+		return
+	current = head
+	while (current.next):
+		if current.data == current.next.data:
+			current.next = current.next.next
+		else:
+			current = current.next
+
+	return
+3)
+def reverse(self, head, k):
+        
+        if head == None:
+          return None
+        current = head
+        next = None
+        prev = None
+        count = 0
+        while(current is not None and count < k):
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+            count += 1
+        if next is not None:
+            head.next = self.reverse(next, k)
+        return prev
+
+4)
+def kAltReverse(head, k) :
+    current = head
+    next = None
+    prev = None
+    count = 0
+    while (current != None and count < k) :
+        next = current.next
+        current.next = prev
+        prev = current
+        current = next
+        count = count + 1;
+    if(head != None):
+        head.next = current
+    count = 0
+    while(count < k - 1 and current != None ):
+        current = current.next
+        count = count + 1
+    if(current != None):
+        current.next = kAltReverse(current.next, k)
+    return prev
+
+5)
+def deleteLast(head, key) :
+  
+   
+    x = None
+    temp = head 
+    while (temp != None) :
+       
+        if (temp.key == key) :
+            x = temp 
+  
+        temp = temp.next
+      
+    
+    	if (x != None) :
+      
+              x.key = x.next.key 
+  
+         
+        temp = x.next
+        x.next = x.next.next
+  
+        
+      
+    return head
+  
+  def newNode(key) :
+  
+    temp = Node(0) 
+    temp.key = key 
+    temp.next = None
+    return temp 
+  
+def printList( node) :
+  
+    while (node != None) :
+      
+        print ( node.key, end = " ") 
+        node = node.next
+      
+
+
+Q6)
+
+def sortedMerge(headA, headB):
+
+    dummyNode = Node(0)
+    tail = dummyNode
+    while True:
+ 
+        if headA is None:
+            tail.next = headB
+            break
+        if headB is None:
+            tail.next = headA
+            break
+        if headA.data <= headB.data:
+            tail.next = headA
+            headA = headA.next
+        else:
+            tail.next = headB
+            headB = headB.next
+ 
+        tail = tail.next
+
+    return dummyNode.next
+
+
+Q7)
+
+def reverseDLL(head_ref):
+    current = head_ref
+    temp = None
+ 
+    while current != None:
+        temp = current.prev
+        current.prev = current.next
+        current.next = temp
+        current = current.prev
+ 
+    if temp != None:
+        head_ref = temp.prev
+ 
+    return head_ref
+
+ 
+def printList(node):
+    while node != None:
+        print(node.data, end=" ")
+        node = node.next
+
+Q8)
+
+ def deleteNode(head_ref, del_):
+        if (head_ref == None or del_ == None):
+        return
+ 
+    
+        if (head_ref == del_):
+            head_ref = del_.next
+ 
+        if (del_.next != None):
+            del_.next.prev = del_.prev
+ 
+        if (del_.prev != None):
+            del_.prev.next = del_.next
+         
+        return head_ref
+ 
+    def deleteNodeAtGivenPos(head_ref,n):
+ 
+    
+        if (head_ref == None or n <= 0):
+            return
+ 
+        current = head_ref
+        i = 1
+        while ( current != None and i < n ):
+            current = current.next
+            i = i + 1
+        if (current == None):
+            return
+        deleteNode(head_ref, current)
+     
+        return head_ref
+    def push(head_ref, new_data):
+        new_node = Node(0)
+        new_node.data = new_data
+        new_node.prev = None
+        new_node.next = (head_ref)
+        if ((head_ref) != None):
+            (head_ref).prev = new_node
+        (head_ref) = new_node
+     
+        return head_ref
+    def printList(head):
+ 
+        while (head != None) :
+            print( head.data ,end= " ")
+            head = head.next
