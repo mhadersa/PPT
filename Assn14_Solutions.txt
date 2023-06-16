@@ -1,0 +1,202 @@
+Q1)
+def removeLoop(self, head):
+        prev = None        # previous pointer
+        curr = head        # main pointer
+ 
+    # maintain a set to store visited nodes
+        s = set()
+ 
+    # traverse the list
+        while curr:
+        # `s` previous pointer to None if the current node is seen before
+            if curr in s:
+                prev.next = None
+                return
+ 
+        # insert the current node into the set
+            s.add(curr)
+ 
+        # update the previous pointer to the current node and
+        # move the main pointer to the next node
+            prev = curr
+            curr = curr.next
+
+Q2)
+
+def addOne(self,head):
+        ln = head
+        if (head.next == None) :
+            head.data += 1
+            return head
+        t = head
+        prev = 0
+        while (t.next != None) :
+            if (t.data != 9) :
+                ln = t
+            t = t.next
+        if (t.data == 9 and ln != None) :
+            t = ln
+            t.data += 1
+            t = t.next
+            while (t != None) :
+                t.data = 0
+                t = t.next
+        else :
+            t.data += 1
+        return head
+
+Q3)
+
+def merge(l1, l2):
+	if(l1 == None):
+		return l2	
+	if(l2 == None):
+		return l1	
+	result = None
+	if (l1.data < l2.data):
+		result = l1
+		result.bottom = merge(l1.bottom,l2)
+	else:
+		result = l2
+		result.bottom = merge(l1,l2.bottom)
+	result.next = None
+	return result
+
+def flatten(root):	
+	if(root == None or root.next == None):
+		return root
+	root.next = flatten(root.next)
+	root = merge(root, root.next)	
+	return root
+
+Q4)
+
+class Solution:
+    def copyList(self,head):
+        if head == None:
+            return None
+        curr = head
+        while curr != None:
+            newNode = Node(curr.data)
+            newNode.next = curr.next
+            curr.next = newNode
+            curr = newNode.next
+        curr = head
+        while curr != None:
+            if curr.arb != None:
+                curr.next.arb = curr.arb.next
+            curr = curr.next.next
+        curr = head
+        clonedHead = head.next
+        clonedCurr = clonedHead
+        while clonedCurr.next != None:
+            curr.next = curr.next.next
+            clonedCurr.next = clonedCurr.next.next
+            curr = curr.next
+            clonedCurr = clonedCurr.next
+        curr.next = None
+        clonedCurr.next = None
+        return clonedHead
+    
+Q5)
+   class Solution(object):
+    def oddEvenList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        oddHead = ListNode(0)
+        evenHead = ListNode(0)
+        odd = oddHead
+        even = evenHead
+        isOdd = True
+
+        while head:
+            if isOdd:
+                odd.next = head
+                odd = head
+            else:
+                even.next = head
+                even = head
+            head = head.next
+            isOdd = not isOdd
+
+        even.next = None
+        odd.next = evenHead.next
+        return oddHead.next
+
+Q6)
+class Solution(object):
+    def rotateRight(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """ 
+        if not head or not head.next or k == 0:
+            return head
+
+        tail = head
+        length = 1
+        while tail.next:
+            tail = tail.next
+            length += 1
+        tail.next = head  # Circle the list
+
+        t = length - k % length
+        for _ in range(t):
+            tail = tail.next
+        newHead = tail.next
+        tail.next = None
+
+        return newHead
+Q7)
+
+class Solution(object):
+    def nextLargerNodes(self, head):
+        """
+        :type head: ListNode
+        :rtype: List[int]
+        """
+        ans = []
+        stack = []
+
+        while head:
+            while stack and head.val > ans[stack[-1]]:
+                index = stack.pop()
+                ans[index] = head.val
+            stack.append(len(ans))
+            ans.append(head.val)
+            head = head.next
+
+        for i in stack:
+            ans[i] = 0
+
+        return ans
+
+Q8)
+
+class Solution(object):
+    def removeZeroSumSublists(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0, head)
+        prefix = 0
+        prefixToNode = {0: dummy}
+
+        while head:
+            prefix += head.val
+            prefixToNode[prefix] = head
+            head = head.next
+
+        prefix = 0
+        head = dummy
+
+        while head:
+            prefix += head.val
+            head.next = prefixToNode[prefix].next
+            head = head.next
+
+        return dummy.next
