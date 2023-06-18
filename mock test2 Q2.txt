@@ -1,0 +1,23 @@
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        temp = ListNode(0)
+        org = temp
+        k = 0
+
+        while k or l1 or l2:
+            if l1:
+                k += l1.val
+                l1 = l1.next
+            if l2:
+                k += l2.val
+                l2 = l2.next
+            org.next = ListNode(k % 10)
+            k //= 10
+            org = org.next
+
+        return temp.next
