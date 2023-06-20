@@ -1,0 +1,219 @@
+Q1)
+
+class Solution:
+    def nextLargerElement(self,arr,n):
+        
+        s = []
+        for i in range(len(arr)):
+            while s and s[-1].get("value") < arr[i]:
+                d = s.pop()
+                arr[d.get("ind")] = arr[i]
+            s.append({"value": arr[i], "ind": i})
+        while s:
+            d = s.pop()
+            arr[d.get("ind")] = -1
+        return arr
+
+Q2)
+
+def nearest_smaller_to_left(arr):
+    res = []
+    for i in range(0, len(arr)):
+        for j in range(i-1, -1, -1):
+            if arr[i] > arr[j]:
+                res.append(arr[j])
+                break
+        else:
+            res.append(-1)
+
+    return res
+
+
+Q3)
+
+def push(self, val):
+        self.secondQ.put(val)
+        self.currentSize += 1
+        while not self.firstQ.empty():
+            self.secondQ.put(self.firstQ.queue[0])
+            self.firstQ.get()
+
+        self.tempQ = self.firstQ
+        self.firstQ = self.secondQ
+        self.secondQ = self.tempQ
+
+    def pop(self):
+        if not self.firstQ.empty():
+            self.firstQ.get()
+            self.currentSize -= 1
+
+
+Q4)
+
+from collections import deque
+ 
+ 
+
+def insertAtBottom(s, item):
+    if not s:
+        s.append(item)
+        return
+ 
+    top = s.pop()
+    insertAtBottom(s, item)
+    s.append(top)
+ 
+ 
+def reverseStack(s):
+ 
+    if not s:
+        return
+ 
+    item = s.pop()
+    reverseStack(s)
+    insertAtBottom(s, item)
+ 
+ 
+if __name__ == '__main__':
+ 
+    s = deque(range(1, 6))
+    reverseStack(s)
+    print (s)
+
+Q5)
+
+def createStack():
+	stack = []
+	return stack
+
+def size(stack):
+	return len(stack)
+
+def isEmpty(stack):
+	if size(stack) == 0:
+		return true
+
+
+def push(stack, item):
+	stack.append(item)
+
+
+
+def pop(stack):
+	if isEmpty(stack):
+		return
+	return stack.pop()
+
+
+
+def reverse(string):
+	n = len(string)
+
+	stack = createStack()
+
+	for i in range(0, n, 1):
+		push(stack, string[i])
+
+	string = ""
+
+	for i in range(0, n, 1):
+		string += pop(stack)
+
+	return string
+
+Q6)
+
+class Solution:
+    def __init__(self):
+        self.stack = []
+        self.top = -1
+ 
+    def pop(self):
+        if self.top == -1:
+            return
+        else:
+            self.top -= 1
+            return self.stack.pop()
+ 
+    def push(self, i):
+        self.top += 1
+        self.stack.append(i)
+ 
+    def evaluatePostfix(self, ab):
+        for i in ab:
+            try:
+                self.push(int(i))
+            except ValueError:
+                val1 = self.pop()
+                val2 = self.pop()
+                if i == '/':
+                    self.push(val2 / val1)
+                else:
+                    switcher = {'+': val2 + val1, '-': val2 -
+                                val1, '*': val2 * val1, '^': val2**val1}
+                    self.push(switcher.get(i))
+        return int(self.pop())
+
+Q7)
+
+class MinStack(object):
+
+    def __init__(self):
+        self.stack = []
+        
+
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        if not self.stack:
+            self.stack.append((val, val))
+            return
+
+        current_min = self.stack[-1][1]
+        self.stack.append((val, min(val, current_min)))
+        
+
+    def pop(self):
+        """
+        :rtype: None
+        """
+        self.stack.pop()
+        
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][0]
+        
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][1]
+        
+Q8)
+
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        n = len(height)
+        l = [0] * n  # l[i] := max(height[0..i])
+        r = [0] * n  # r[i] := max(height[i..n))
+
+        for i, h in enumerate(height):
+            l[i] = h if i == 0 else max(h, l[i - 1])
+
+        for i, h in reversed(list(enumerate(height))):
+            r[i] = h if i == n - 1 else max(h, r[i + 1])
+
+        return sum(min(l[i], r[i]) - h
+                    for i, h in enumerate(height))
+
+
